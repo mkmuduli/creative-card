@@ -56,6 +56,10 @@ html{
     border: 2px solid black;
 }
 
+.color__btn[active]{
+    border: 2px solid green;
+}
+
 .search-box{
     display: flex;
     flex-direction: column;
@@ -94,6 +98,7 @@ html{
     display: flex;
     padding-top: 1rem;
     flex-direction: column;
+    gap: 0.5rem;
 }
 .creative-card{
     border: 2px solid black;
@@ -153,4 +158,8 @@ html{
 
 .d-none{
     display: none;
+}
+
+.button-1[disabled]{
+    border: 2px solid #c2bbbb;
 }
