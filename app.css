@@ -1,0 +1,153 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 15px;
+}
+
+.main-container{
+    display: flex;
+}
+
+.present-container{
+    display: flex;
+    flex-direction: column;
+    margin-left:1rem;
+    overflow: scroll;
+    height: 100vh;
+    max-width: 69rem;
+    flex: 1;
+}
+.main-title{
+    font-size: 1.7rem;
+    margin: 0;
+    padding-top: 1rem;
+}
+.filter-box{
+    display: flex;
+    flex-direction: row;
+    padding-top: 1rem;
+}
+
+.color-box{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 20rem;
+}
+.box__title{
+    font-size: 1rem;
+    margin: 0;
+}
+.color__body{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.color__btn{
+    height: 1.4rem;
+    width: 1.4rem;
+    border-radius: 1.4rem;
+    border: 2px solid black;
+}
+
+.search-box{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 15rem;
+}
+.search__input{
+   max-width: 20rem;
+   padding-top: 0.3rem;
+   padding-bottom: 0.3rem;
+}
+.progress-box{
+    display: flex;
+    padding-top: 1rem;
+    align-items: center;
+    font-weight: 600;
+}
+.progress__body{
+    height: 2rem;
+    width: 20rem;
+    margin-right: .5rem;
+}
+.present-body{
+    display: flex;
+    padding-top: 1rem;
+    flex-direction: column;
+}
+.button-1{
+    max-width: 10rem;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    background-color: #fff;
+    border: 2px solid black;
+}
+.card-container{
+    display: flex;
+    padding-top: 1rem;
+    flex-direction: column;
+}
+.creative-card{
+    border: 2px solid black;
+    max-width: 25rem;
+    border-radius: 0.3rem;
+    padding: 1.5rem;
+    min-height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.creative-card__heading{
+    margin: 0;
+}
+.creative-card__subheading{
+    margin: 0;
+}
+
+.creation-container{
+    position: relative;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 25rem;
+    border-left: 2px solid black;
+    padding-left: 2rem;
+    height: 100vh;
+}
+
+.button-1--done {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 3rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+.cross__btn{
+    background-color: #fff;
+    border: none;
+    font-size: 1.8rem;
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.creation__head{
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.creation__head .main-title{
+    padding-top: 0;
+    flex: 1;
+}
+
+.d-none{
+    display: none;
+}
