@@ -1,6 +1,15 @@
 const cards = [];
 
 const creationColorButtonSelector = ".creation-container .color__body .color__btn";
+const filterColorButtonSelector = ".filter-box .color__body .color__btn";
+
+function debounce(func, timeout = 300){
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
 
 const fetchColors = () => {
     const colorUrl = "https://random-flat-colors.vercel.app/api/random?count=5";
@@ -47,7 +56,26 @@ const getSelectedColor = (query) => {
     return color;
 }
 
-const resetColor = (query) =>{
+const filterCards = () => {
+    const color = getSelectedColor(filterColorButtonSelector);
+    const inputEle = document.querySelector(".filter-box .search__input");
+    const text = inputEle.value;
+
+    const cardContainer = document.querySelector('.card-container');
+    cardContainer.innerHTML ="";
+    cards.forEach((eachCard)=>{
+        if(color && color !== eachCard.color) return;
+        if(text && !eachCard.title.toLowerCase().includes(text.toLowerCase()) && !eachCard.subtitle.toLowerCase().includes(text.toLowerCase())) return;
+
+        const elem = document.createElement("div");
+        elem.classList.add('creative-card');
+        elem.innerHTML = `<h2 class="creative-card__heading">${eachCard.title}</h2><h4 class="creative-card__subheading">${eachCard.subtitle}</h4>`;
+        elem.style.backgroundColor = eachCard.color;
+        cardContainer.appendChild(elem);
+    })
+}
+
+const resetColor = (query) => {
     const buttons = document.querySelectorAll(query);
     buttons.forEach(eachBtn => {
         eachBtn.removeAttribute("active");
@@ -55,13 +83,7 @@ const resetColor = (query) =>{
 }
 
 const addCards = (card) => {
-    const cardContainer = document.querySelector('.card-container');
-    const elem = document.createElement("div");
-    elem.classList.add('creative-card');
-    elem.innerHTML = `<h2 class="creative-card__heading">${card.title}</h2><h4 class="creative-card__subheading">${card.subtitle}</h4>`;
-    elem.style.backgroundColor = card.color;
-    cardContainer.appendChild(elem);
-
+    filterCards();
     const progressEle = document.querySelector('.progress__body');
     const prevValue = progressEle.getAttribute("value");
     progressEle.setAttribute("value", parseInt(prevValue, 10) + 1);
@@ -79,7 +101,7 @@ const clearCreationField = () => {
 }
 
 const onDoneClick = () => {
-    if(cards.length === 5) return;
+    if (cards.length === 5) return;
     const creationInputs = document.querySelectorAll(".creation-container .search__input");
     const color = getSelectedColor(creationColorButtonSelector);
     if (!creationInputs[0].value || !creationInputs[1].value || !color) {
@@ -90,13 +112,13 @@ const onDoneClick = () => {
             subtitle: creationInputs[1].value,
             color
         };
-        cards.push(cards);
+        cards.push(card);
         if (cards.length === 5) {
             const addCreativeBtn = document.querySelector(".present-body .button-1");
             addCreativeBtn.setAttribute("disabled", "");
         }
         addCards(card);
-        // clearCreationField();
+        clearCreationField();
     }
 }
 
@@ -105,6 +127,7 @@ const addListenerOnButtons = (query, cb) => {
     elements.forEach(eachBtn => {
         eachBtn.addEventListener("click", (e) => {
             cb(e, elements);
+            if (query === filterColorButtonSelector) filterCards();
         });
     });
 }
@@ -112,10 +135,15 @@ const addListenerOnButtons = (query, cb) => {
 const onColorSelect = (e, buttons) => {
     buttons.forEach(eachBtn => {
         if (eachBtn === e.target) {
-            eachBtn.setAttribute("active", "")
+            if (null == eachBtn.getAttribute("active")) eachBtn.setAttribute("active", "");
+            else eachBtn.removeAttribute("active");
         }
         else eachBtn.removeAttribute("active");
     });
+}
+
+const onFilterInoutChange = () => {
+    filterCards();
 }
 
 
@@ -137,12 +165,9 @@ const onColorSelect = (e, buttons) => {
 
     addListenerOnButtons(creationColorButtonSelector, onColorSelect);
 
-
-
-
-
-
-
+    addListenerOnButtons(filterColorButtonSelector, onColorSelect);
+    const filterInputEle = document.querySelector(".filter-box .search__input");
+    filterInputEle.addEventListener('keyup', debounce(onFilterInoutChange));
 
 
 })();
